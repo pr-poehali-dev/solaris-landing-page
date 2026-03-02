@@ -40,13 +40,115 @@ const facts = [
 ];
 
 const Index = () => {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div
       style={{ backgroundColor: "var(--navy-deep)", color: "var(--text-primary)", fontFamily: "'Montserrat', sans-serif" }}
       className="min-h-screen"
     >
+      {/* ─── HEADER ─── */}
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 60px",
+          height: 64,
+          background: "rgba(3,8,16,0.72)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(232,168,53,0.1)",
+        }}
+      >
+        {/* Left nav */}
+        <nav style={{ display: "flex", gap: 40 }}>
+          {[
+            { label: "О книге", id: "hero" },
+            { label: "Об авторе", id: "author" },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 12,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(140,163,190,0.8)",
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 400,
+                padding: 0,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--amber)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(140,163,190,0.8)")}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* Center logo */}
+        <div
+          className="font-display"
+          style={{
+            fontSize: 22,
+            fontWeight: 300,
+            fontStyle: "italic",
+            color: "rgba(212,221,232,0.6)",
+            letterSpacing: "0.05em",
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          Солярис
+        </div>
+
+        {/* Right nav */}
+        <nav style={{ display: "flex", gap: 40 }}>
+          {[
+            { label: "Рецензии", id: "reviews" },
+            { label: "Читать", id: "cta" },
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollTo(item.id)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 12,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: item.label === "Читать" ? "var(--amber)" : "rgba(140,163,190,0.8)",
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: item.label === "Читать" ? 500 : 400,
+                padding: 0,
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--amber)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = item.label === "Читать" ? "var(--amber)" : "rgba(140,163,190,0.8)")}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+      </header>
+
       {/* ─── HERO ─── */}
       <section
+        id="hero"
         style={{
           background: "linear-gradient(135deg, #020810 0%, #060d1a 40%, #081525 70%, #0a1c30 100%)",
           minHeight: "100vh",
@@ -75,7 +177,7 @@ const Index = () => {
             zIndex: 10,
             maxWidth: 1280,
             margin: "0 auto",
-            padding: "80px",
+            padding: "120px 80px 80px",
             width: "100%",
             display: "flex",
             alignItems: "center",
@@ -146,6 +248,7 @@ const Index = () => {
 
       {/* ─── AUTHOR ─── */}
       <section
+        id="author"
         style={{
           background: "linear-gradient(180deg, #060d1a 0%, #070f1e 100%)",
           padding: "120px 0",
@@ -223,6 +326,7 @@ const Index = () => {
 
       {/* ─── REVIEWS ─── */}
       <section
+        id="reviews"
         style={{
           background: "linear-gradient(180deg, #070f1e 0%, #060c18 100%)",
           padding: "120px 0",
@@ -354,7 +458,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div style={{ marginTop: 80, textAlign: "center", paddingTop: 60, borderTop: "1px solid rgba(232,168,53,0.1)" }}>
+          <div id="cta" style={{ marginTop: 80, textAlign: "center", paddingTop: 60, borderTop: "1px solid rgba(232,168,53,0.1)" }}>
             <p
               className="font-display"
               style={{ fontSize: 28, fontStyle: "italic", fontWeight: 300, color: "#8ca3be", marginBottom: 24 }}
